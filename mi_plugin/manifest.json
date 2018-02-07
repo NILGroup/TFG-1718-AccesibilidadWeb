@@ -1,33 +1,26 @@
 {
-	"manifest_version": 2,
-	"name": "sample",
-	"description": "a sample manifest",
-	"version": "1.0",
-	"permissions": [
-		"storage"
-	],
-	"icons": { 
-		"16": "img/icon16.png",
-		"48": "img/icon48.png",
-		"128": "img/icon128.png" 
-	},
-	"background": {
-        "scripts": ["event.js"],
-        "persistent": false
-    },
-	"browser_action": {
-		"default_icon": {                    
-			"19": "img/icon48.png",          
-			"38": "img/icon48.png"          
-		},
-		"default_popup": "popup.html"
-	},
-	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-	"web_accessible_resources": [
-		"img/icon128.png"
-	],
-	"permissions": [
-        "tabs", 
-        "http://*/*", 
-        "https://*/*"
-    ]}
+  "manifest_version": 2,
+  "name": "Apoyo a la navegación",
+  "description": "Herramienta de apoyo a la navegación web para personas con discapacidad",
+  "version": "1.0",
+
+  "browser_action":{
+    "default_icon": "img/icon.png"
+  },
+  "icons":{
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "content_scripts":[
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["style.css"],
+      "js": ["add-toolbar.js"]
+    }
+  ],
+  "web_accessible_resources":[
+    "toolbar.html",
+    "style.css"
+  ]
+}
