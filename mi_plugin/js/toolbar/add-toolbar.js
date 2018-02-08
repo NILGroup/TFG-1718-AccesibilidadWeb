@@ -1,7 +1,7 @@
-var height = '40px';
+var height = '60px';
 var iframe = document.createElement('iframe');
 iframe.setAttribute("id", "customToolbarMenu");
-iframe.src = chrome.extension.getURL('toolbar.html');
+iframe.src = chrome.extension.getURL('../toolbar.html');
 
 document.documentElement.appendChild(iframe);
 
