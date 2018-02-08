@@ -3,10 +3,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: black;
+  background: #949494;
   border: 0;
+  height: 40px;
+  color: white;
 }
 
 #body{
-  color: white;
+
 }
