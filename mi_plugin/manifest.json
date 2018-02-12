@@ -3,24 +3,45 @@
   "name": "Apoyo a la navegación",
   "description": "Herramienta de apoyo a la navegación web para personas con discapacidad",
   "version": "1.0",
+  "author": "Lorena Jiménez",
 
-  "browser_action":{
-    "default_icon": "img/icon.png"
-  },
   "icons":{
     "16": "img/icon16.png",
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+  "browser_action":{
+    "default_icon": "img/icon.png",
+    "default_popup": "popup.html"
+  },
   "content_scripts":[
     {
       "matches": ["http://*/*", "https://*/*"],
       "css": ["style.css"],
-      "js": ["js/jquery-3.3.1.min.js","js/toolbar/add-toolbar.js", "js/toolbar/option-selected.js"]
+      "js": [
+        "js/jquery-3.3.1.min.js",
+        "js/toolbar/add-toolbar.js",
+        "js/selectedText/content.js",
+        "js/selectedText/popup.js",
+        "js/services/option-selected.js"
+       ]
     }
   ],
+  /* "content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'" */
+  "content_security_policy":"script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "web_accessible_resources":[
+    "popup.html",
     "toolbar.html",
     "style.css"
-  ]
+  ],
+  "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "storage"
+    ]
 }
