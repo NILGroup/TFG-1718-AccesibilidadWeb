@@ -24,10 +24,11 @@
       "css": ["style.css"],
       "js": [
         "js/jquery-3.3.1.min.js",
+        "js/services/option-selected.js",
         "js/toolbar/add-toolbar.js",
         "js/selectedText/content.js",
-        "js/selectedText/popup.js",
-        "js/services/option-selected.js"
+        "js/selectedText/popup.js"
+
        ]
     }
   ],
