@@ -1,4 +1,4 @@
-var height = '50px';
+var height = '45px';
 var div = document.createElement('div');
 div.setAttribute("id", "customToolbarMenu");
 

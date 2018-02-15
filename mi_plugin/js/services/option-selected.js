@@ -1,38 +1,39 @@
 var theText;
 
 $(document).ready(function(){
-  //!!
-  $("#searchTextPopup").click(function(e){
-  });
   //Llamar al servicio de definiciones
-  $("#definitionPopup").click(function(e){
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/definicion/json/' + theText;
+  $("#definitionPopup").click(function(){
+    getSearchText();
+    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/definicion/xml/' + theText;
     callingWebService(url, theText);
   });
   //Llamar al servicio de sinónimos
-  $("#synonymPopup").click(function(e){
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/' + theText;
+  $("#synonymPopup").click(function(){
+    getSearchText();
+    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/xml/' + theText;
     callingWebService(url, theText);
   });
   //Llamar al servicio de antónimos
-  $("#antonymPopup").click(function(e){
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/antonimos/json/' + theText;
+  $("#antonymPopup").click(function(){
+    getSearchText();
+    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/antonimos/xml/' + theText;
     callingWebService(url, theText);
   });
   //Llamar al servicio de pictogramas
-  $("#imgPopup").click(function(e){
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/palabra/' + theText;
+  $("#imgPopup").click(function(){
+    getSearchText();
+    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/xml/' + theText;
     callingWebService(url, theText);
   });
   //Abrir nueva pestaña de Youtube
-  $("#youtubePopup").click(function(e){
-    window.open("https://www.Youtube.com", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+  $("#youtubePopup").click(function(){
+    var url = "https://www.youtube.com";
+    openCenteringWindow(url);
   });
 });
 
 window.addEventListener('mouseup', function(){
     var text = getSelectionText()
-    console.log(text.length);
     if (text.length > 0){ // check there's some text selected
         theText = text;
     }
@@ -51,9 +52,28 @@ function callingWebService(url, selectedText) {
     xmlHttpRequest.open('GET', url);
 
     xmlHttpRequest.onload = function() {
-         var myWindow = window.open("", "MsgWindow", "width=500,height=500");
+         var myWindow = openCenteringWindow("");
          myWindow.document.write("<h1>" + selectedText + "</h1>");
          myWindow.document.write("<p>" + xmlHttpRequest.responseText + "<p>");
     };
     xmlHttpRequest.send();
+    if(searchText != ""){
+      document.getElementById("searchText").value = "";
+    }
+}
+function getSearchText(){
+  var searchText = document.getElementById('searchText').value;
+  if(searchText != ""){
+    theText = searchText;
+  }
+}
+function openCenteringWindow(url){
+  var width  = 900;
+  var height  = 700;
+  var left = (window.screen.width / 2) - ((width / 2) + 10);
+  var top = (window.screen.height / 2) - ((height / 2) + 50);
+  return  window.open(url, "_blank", "status=no,height=" + height + ",width=" + width + ",resizable=yes,left="
+  + left + ",top=" + top + ",screenX=" + left + ",screenY="
+  + top + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no");
+
 }
