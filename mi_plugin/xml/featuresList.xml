@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+ <features>
+  <service>
+	<index>Definitions</index>
+    <name>Definiciones</name>
+  </service>
+  <service>
+	<index>Synonyms</index>
+    <name>Sinónimos</name>
+  </service>
+  <service>
+	<index>Youtube</index>
+    <name>Youtube</name>
+  </service>
+  <service>
+	<index>Wikipedia</index>
+    <name>Wikipedia</name>
+  </service>
+  <service>
+	<index>Pictograms</index>
+    <name>Pictogramas</name>
+  </service>
+  <service>
+	<index>Summary</index>
+    <name>Resumen</name>
+  </service>
+</features>

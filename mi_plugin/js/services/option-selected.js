@@ -1,33 +1,41 @@
-var theText;
-
+var theText= "";
 $(document).ready(function(){
+  $('input[type="checkbox"]').click(function(){
+      var inputValue = $(this).attr("value");
+      $("#" + inputValue).toggle();
+  });
   //Llamar al servicio de definiciones
-  $("#definitionPopup").click(function(){
+  $("#Definitions").click(function(){
     getSearchText();
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/definicion/xml/' + theText;
+    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/definicion/json/' + theText;
     callingWebService(url, theText);
   });
   //Llamar al servicio de sinónimos
-  $("#synonymPopup").click(function(){
+  $("#Synonyms").click(function(){
     getSearchText();
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/xml/' + theText;
+    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/' + theText;
     callingWebService(url, theText);
   });
   //Llamar al servicio de antónimos
-  $("#antonymPopup").click(function(){
+  $("#Antonyms").click(function(){
     getSearchText();
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/antonimos/xml/' + theText;
+    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/antonimos/json/' + theText;
     callingWebService(url, theText);
   });
   //Llamar al servicio de pictogramas
-  $("#imgPopup").click(function(){
+  $("#Pictograms").click(function(){
     getSearchText();
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/xml/' + theText;
+    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/json/' + theText;
     callingWebService(url, theText);
   });
   //Abrir nueva pestaña de Youtube
-  $("#youtubePopup").click(function(){
-    var url = "https://www.youtube.com";
+  $("#Youtube").click(function(){
+    var url = "https://www.youtube.com/results?search_query=" + theText;
+    openCenteringWindow(url);
+  });
+  //Abrir nueva pestaña de Wikipedia
+  $("#Wikipedia").click(function(){
+    var url = "https://es.wikipedia.org/wiki/" + theText;
     openCenteringWindow(url);
   });
 });
@@ -48,18 +56,14 @@ function getSelectionText(){
 }
 
 function callingWebService(url, selectedText) {
-    var xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.open('GET', url);
-
-    xmlHttpRequest.onload = function() {
-         var myWindow = openCenteringWindow("");
-         myWindow.document.write("<h1>" + selectedText + "</h1>");
-         myWindow.document.write("<p>" + xmlHttpRequest.responseText + "<p>");
-    };
-    xmlHttpRequest.send();
-    if(searchText != ""){
-      document.getElementById("searchText").value = "";
-    }
+    if(selectedText == "") return;
+    $.get(url, function( data ) {
+        var definitions = JSON.parse(data);
+        console.log(definitions);
+        var myWindow = openCenteringWindow("");
+        myWindow.document.write("<h1>" + selectedText + "</h1>");
+        myWindow.document.write("<p>" + data + "<p>");
+    });
 }
 function getSearchText(){
   var searchText = document.getElementById('searchText').value;

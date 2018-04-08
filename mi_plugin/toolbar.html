@@ -1,16 +1,24 @@
-
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/services/option-selected.js"></script>
-
-
-    <div id="toolbar">
-      <ul class="nav navbar-nav">
-        <li><input id="searchText" type="text" placeholder="Buscar..."></li>
-        <li id="definitionPopup"><a href="#">Definiciones</a></li>
-        <li id="synonymPopup"><a href="#">Palabras parecidas</a></li>
-        <li id="antonymPopup"><a href="#">Palabras distintas</a></li>
-        <li id="imgPopup"><a href="#">Pictogramas</a></li>
-        <li id="youtubePopup" ><a href="#" >Youtube</a></li>
-      </ul>
-    </div>
+    <script src="js/services/createCustomToolbar.js"></script>
+  </head>
+  <body>
+    <ul>
+      <li><input id="searchText" type="text" placeholder="Buscar..."></li>
+      <li id="Definitions" class="hidableItems"><a href="#">Definiciones</a></li>
+      <li id="Synonyms" class="hidableItems"><a href="#">Palabras parecidas</a></li>
+      <li id="Antonyms" class="hidableItems"><a href="#">Palabras distintas</a></li>
+      <li id="Pictograms" class="hidableItems"><a href="#">Pictogramas</a></li>
+      <li id="Youtube" class="hidableItems"><a href="#">Youtube</a></li>
+      <li id="Wikipedia" class="hidableItems"><a href="#">Wikipedia</a></li>
+	    <li id="Summary" class="hidableItems"><a href="#">Resumen</a></li>
+			<li style="float:right"><a href="#"><i class="fa fa-cogs"></i></a> </li>
+    </ul>
+  </body>
+</html>

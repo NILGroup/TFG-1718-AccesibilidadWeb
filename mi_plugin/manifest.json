@@ -4,19 +4,15 @@
   "description": "Herramienta de apoyo a la navegación web para personas con discapacidad",
   "version": "1.0",
   "author": "Lorena Jiménez",
-
   "icons":{
-    "16": "img/icon16.png",
-    "48": "img/icon48.png",
-    "128": "img/icon128.png"
-  },
-  "background": {
-    "scripts": ["event.js"],
-    "persistent": false
+    "16": "img/help.png",
+    "48": "img/help.png",
+    "128": "img/help.png"
   },
   "browser_action":{
-    "default_icon": "img/icon.png",
-    "default_popup": "popup.html"
+    "default_icon": "img/help.png",
+    "default_popup": "popup.html",
+    "default_title": "Selecciona los servicios que quieres cargar."
   },
   "content_scripts":[
     {
@@ -25,19 +21,18 @@
       "js": [
         "js/jquery-3.3.1.min.js",
         "js/services/option-selected.js",
-        "js/toolbar/add-toolbar.js",
-        "js/selectedText/content.js",
-        "js/selectedText/popup.js"
-
+        "js/toolbar/createCustomToolbar.js",
+        "js/selectionServicesMenu/selectCheckBox.js",
+        "js/selectionServicesMenu/creatingServicesMenu.js",
+        "js/selectionServicesMenu/loadToolbarMenu.js"
        ]
     }
   ],
-  /* "content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'" */
   "content_security_policy":"script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "web_accessible_resources":[
-    "popup.html",
     "toolbar.html",
-    "style.css"
+    "style.css",
+    "img/searchIcon.png"
   ],
   "permissions": [
         "tabs",

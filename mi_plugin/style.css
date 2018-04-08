@@ -1,15 +1,25 @@
+#selectOptions{
+  width: 200px;
+  height: 500px;
+}
+
+#selectOptions ul {
+  list-style-type: none;
+}
+
 #customToolbarMenu{
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: #949494;
+  background: #555;
   height: 45px;
   border: 0;
 }
 
-#toolbar ul {
+#customToolbarMenu ul {
   list-style-type: none;
+  list-style-image:none;
   height: 45px;
   margin: 0;
   padding: 0;
@@ -18,16 +28,17 @@
   background-color: #555;
 }
 
-#toolbar li {
+#customToolbarMenu li {
   float: left;
   border-right:1px solid #bbb;
+  /* display: none; */
 }
 
-#toolbar li:last-child {
+#customToolbarMenu li:last-child {
   border-right: none;
 }
 
-#toolbar li a {
+#customToolbarMenu li a {
   display: block;
   color: white;
   text-align: center;
@@ -35,12 +46,12 @@
   text-decoration: none;
 }
 
-#toolbar li a:hover:not(.active) {
+#customToolbarMenu li a:hover:not(.active) {
   background-color: #111;
 }
 
-#toolbar input[type=text] {
-  width: 130px;
+#customToolbarMenu input[type=text] {
+  width: 200px;
   height: 45px;
   box-sizing: border-box;
   border: 2px solid #ccc;
@@ -52,10 +63,6 @@
   padding: 12px 20px 12px 40px;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
-}
-
-#toolbar input[type=text]:focus {
-    width: 100%;
 }
 
 .active {
