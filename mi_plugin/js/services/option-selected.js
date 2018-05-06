@@ -1,76 +1,83 @@
-var theText= "";
+var userText= "";
+var serviceCalled = "";
 $(document).ready(function(){
-  $('input[type="checkbox"]').click(function(){
-      var inputValue = $(this).attr("value");
-      $("#" + inputValue).toggle();
-  });
   //Llamar al servicio de definiciones
   $("#Definitions").click(function(){
     getSearchText();
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/definicion/json/' + theText;
-    callingWebService(url, theText);
+    var url = 'https://sesat.fdi.ucm.es/tfgapi/servicios/rest/definicion/json/' + userText;
+    serviceCalled = this.textContent;
+    callingWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de sinónimos
   $("#Synonyms").click(function(){
     getSearchText();
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/' + theText;
-    callingWebService(url, theText);
+    var url = 'https://sesat.fdi.ucm.es:tfgapi/servicios/rest/sinonimos/json/' + userText;
+    var serviceCalled = this.textContent;
+    callingWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de antónimos
   $("#Antonyms").click(function(){
     getSearchText();
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/antonimos/json/' + theText;
-    callingWebService(url, theText);
+    var url = 'https://sesat.fdi.ucm.es:tfgapi/servicios/rest/antonimos/json/' + userText;
+    var serviceCalled = this.textContent;
+    callingWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de pictogramas
   $("#Pictograms").click(function(){
     getSearchText();
-    var url = 'http://sesat.fdi.ucm.es:8080/servicios/rest/pictograma/json/' + theText;
-    callingWebService(url, theText);
+    var url = 'https://sesat.fdi.ucm.es:tfgapi/servicios/rest/pictograma/json/' + userText;
+    var serviceCalled = this.textContent;
+    callingWebService(url, userText, serviceCalled);
   });
   //Abrir nueva pestaña de Youtube
   $("#Youtube").click(function(){
-    var url = "https://www.youtube.com/results?search_query=" + theText;
+    var url = "https://www.youtube.com/results?search_query=" + userText;
     openCenteringWindow(url);
   });
   //Abrir nueva pestaña de Wikipedia
   $("#Wikipedia").click(function(){
-    var url = "https://es.wikipedia.org/wiki/" + theText;
+    var url = "https://es.wikipedia.org/wiki/" + userText;
     openCenteringWindow(url);
+  });
+
+  //Abrir popup con los datos guardados por el usuario
+  $("#getChangesId").click(function(){
+    loadChanges();
   });
 });
 
 window.addEventListener('mouseup', function(){
-    var text = getSelectionText()
+    var text = getSelectionText();
     if (text.length > 0){ // check there's some text selected
-        theText = text;
+        userText = text;
     }
 }, false)
 
 function getSelectionText(){
-    var selectedText = "";
-    if (document.getSelection()){
-        selectedText = document.getSelection().toString();
-    }
-    return selectedText;
+  var selectedText = "";
+  if (document.getSelection()){
+      selectedText = document.getSelection().toString();
+  }
+  return selectedText;
 }
 
-function callingWebService(url, selectedText) {
-    if(selectedText == "") return;
-    $.get(url, function( data ) {
-        var definitions = JSON.parse(data);
-        console.log(definitions);
-        var myWindow = openCenteringWindow("");
-        myWindow.document.write("<h1>" + selectedText + "</h1>");
-        myWindow.document.write("<p>" + data + "<p>");
-    });
+function callingWebService(url, selectedText, serviceCalled) {
+  if(selectedText == "") return;
+  $.get(url, function( data ) {
+      var jsonData = JSON.parse(data);
+
+      var arrayDef = [];
+      arrayDef = parseData(arrayDef, jsonData);
+      openTextModal(arrayDef, serviceCalled, selectedText);
+  });
 }
 function getSearchText(){
   var searchText = document.getElementById('searchText').value;
   if(searchText != ""){
-    theText = searchText;
+    userText = searchText;
   }
 }
+
 function openCenteringWindow(url){
   var width  = 900;
   var height  = 700;
@@ -79,5 +86,12 @@ function openCenteringWindow(url){
   return  window.open(url, "_blank", "status=no,height=" + height + ",width=" + width + ",resizable=yes,left="
   + left + ",top=" + top + ",screenX=" + left + ",screenY="
   + top + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no");
+}
 
+function parseData(arrayDef, jsonData){
+  $.each(jsonData.definiciones, function (index, value) {
+    var def = value.definicion;
+    arrayDef.push(def);
+  });
+  return arrayDef;
 }

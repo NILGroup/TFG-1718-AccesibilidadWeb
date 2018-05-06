@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Apoyo a la navegación",
+  "name": "ReadIt!",
   "description": "Herramienta de apoyo a la navegación web para personas con discapacidad",
   "version": "1.0",
   "author": "Lorena Jiménez",
@@ -17,27 +17,36 @@
   "content_scripts":[
     {
       "matches": ["http://*/*", "https://*/*"],
-      "css": ["style.css"],
+      "css": [
+        "style.css",
+        "bootstrap.min.css"
+      ],
       "js": [
         "js/jquery-3.3.1.min.js",
+        "js/bootstrap.min.js",
         "js/services/option-selected.js",
         "js/toolbar/createCustomToolbar.js",
         "js/selectionServicesMenu/selectCheckBox.js",
         "js/selectionServicesMenu/creatingServicesMenu.js",
-        "js/selectionServicesMenu/loadToolbarMenu.js"
+        "js/selectionServicesMenu/loadToolbarMenu.js",
+        "js/modals/textModal.js",
+        "js/storage/saveChanges.js",
+        "js/storage/getChanges.js"
        ]
     }
   ],
   "content_security_policy":"script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "web_accessible_resources":[
     "toolbar.html",
+    "modal.html",
     "style.css",
     "img/searchIcon.png"
   ],
   "permissions": [
-        "tabs",
         "http://*/*",
         "https://*/*",
-        "storage"
+        "tabs",
+        "storage",
+        "downloads"
     ]
 }

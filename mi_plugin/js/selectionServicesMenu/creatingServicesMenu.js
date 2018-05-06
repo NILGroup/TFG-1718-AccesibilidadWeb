@@ -18,7 +18,7 @@ function creatingServicesMenu() {
   document.write('<li><input class="notSelectAll checkbox" type="checkbox" name="check[]" id="capital_letters"/>Mostrar en mayúsculas</li>');
   document.write("</ul>");
 
-  document.write('<input type="button" id="selectionButton" value="click me"/>');
+  document.write('<input type="button" id="selectionButton" value="Aceptar"/>');
 
 
 }
