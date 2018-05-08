@@ -29,6 +29,13 @@ $(document).ready(function(){
     var serviceCalled = this.textContent;
     callingWebService(url, userText, serviceCalled);
   });
+  //Llamar al servicio de resumenes
+  // $("#Summary").click(function(){
+  //   getSearchText();
+  //   var url = 'https://sesat.fdi.ucm.es/grafeno/run/summary/' + userText;
+  //   var serviceCalled = this.textContent;
+  //   callingWebService(url, userText, serviceCalled);
+  // });
   //Abrir nueva pestaña de Youtube
   $("#Youtube").click(function(){
     var url = "https://www.youtube.com/results?search_query=" + userText;
@@ -39,10 +46,15 @@ $(document).ready(function(){
     var url = "https://es.wikipedia.org/wiki/" + userText;
     openCenteringWindow(url);
   });
-
   //Abrir popup con los datos guardados por el usuario
   $("#getChangesId").click(function(){
-    loadChanges();
+    var savedUserData = [];
+    chrome.storage.sync.get('dataSaved', function (result) {
+      savedUserData = result.dataSaved;
+      if(savedUserData != null){
+        openSavedUserDataModal(savedUserData);
+      }
+    });
   });
 });
 
@@ -62,15 +74,27 @@ function getSelectionText(){
 }
 
 function callingWebService(url, selectedText, serviceCalled) {
+  debugger;
   if(selectedText == "") return;
   $.get(url, function( data ) {
-      var jsonData = JSON.parse(data);
-
-      var arrayDef = [];
-      arrayDef = parseData(arrayDef, jsonData);
+    debugger;
+    var jsonData = JSON.parse(data);
+    var arrayDef = [];
+    switch (serviceCalled) {
+      case "Definiciones":
+        arrayDef = parseDefinitionsData(arrayDef, jsonData);
+        break;
+      case "Palabras parecidas":
+        arrayDef = parseSynonymsData(arrayDef, jsonData);
+        break;
+        case "Palabras diferentes":
+          arrayDef = parseAntonymsData(arrayDef, jsonData);
+          break;
+    }
       openTextModal(arrayDef, serviceCalled, selectedText);
   });
 }
+
 function getSearchText(){
   var searchText = document.getElementById('searchText').value;
   if(searchText != ""){
@@ -88,9 +112,25 @@ function openCenteringWindow(url){
   + top + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no");
 }
 
-function parseData(arrayDef, jsonData){
+function parseDefinitionsData(arrayDef, jsonData){
   $.each(jsonData.definiciones, function (index, value) {
     var def = value.definicion;
+    arrayDef.push(def);
+  });
+  return arrayDef;
+}
+
+function parseSynonymsData(arrayDef, jsonData){
+  $.each(jsonData.sinonimos, function (index, value) {
+    var def = value.sinonimo;
+    arrayDef.push(def);
+  });
+  return arrayDef;
+}
+
+function parseAntonymsData(arrayDef, jsonData){
+  $.each(jsonData.antonimos, function (index, value) {
+    var def = value.antonimo;
     arrayDef.push(def);
   });
   return arrayDef;

@@ -31,7 +31,9 @@
         "js/selectionServicesMenu/loadToolbarMenu.js",
         "js/modals/textModal.js",
         "js/storage/saveChanges.js",
-        "js/storage/getChanges.js"
+        "js/storage/getChanges.js",
+        "js/modals/savedChangesModal.js",
+        "js/storage/exportData.js"
        ]
     }
   ],

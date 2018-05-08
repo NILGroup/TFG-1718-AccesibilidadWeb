@@ -1,9 +1,11 @@
+//no lo uso
 function loadChanges(){
-  var array = [];
+  var savedUserData = [];
   chrome.storage.sync.get('dataSaved', function (result) {
-    array = result.dataSaved;
-    $.each(array, function (index, value) {
-        alert(value);
-    });
+    savedUserData = result.dataSaved;
+
+    if(savedUserData != null){
+      savedUserDataModal(savedUserData);
+    }
   });
 }

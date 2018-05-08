@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/services/option-selected.js"></script>
     <script src="js/services/createCustomToolbar.js"></script>
+		<script src="js/modals/savedChangesModal.js"></script>
 		<script src="js/modals/textModal.js"></script>
 		<script src="js/storage/saveChanges.js"></script>
 		<script src="js/storage/getChanges.js"></script>
@@ -24,13 +25,13 @@
   <ul>
       <li><input id="searchText" type="text" placeholder="Buscar..."></li>
       <li data-toggle="modal" data-target="#exampleModalLong" id="Definitions" class="hidableItems"><a href="#">Definiciones</a></li>
-      <li id="Synonyms" class="hidableItems"><a href="#">Palabras parecidas</a></li>
-      <li id="Antonyms" class="hidableItems"><a href="#">Palabras distintas</a></li>
+      <li data-toggle="modal" data-target="#exampleModalLong" id="Synonyms" class="hidableItems"><a href="#">Palabras parecidas</a></li>
+      <li data-toggle="modal" data-target="#exampleModalLong" id="Antonyms" class="hidableItems"><a href="#">Palabras distintas</a></li>
       <li id="Pictograms" class="hidableItems"><a href="#">Pictogramas</a></li>
       <li id="Youtube" class="hidableItems"><a href="#">Youtube</a></li>
       <li id="Wikipedia" class="hidableItems"><a href="#">Wikipedia</a></li>
-			<li id="Summary" class="hidableItems"><a href="#">Resumen</a></li>
-			<li id="getChangesId" style="float:right"><a href="#"><i class="fa fa-cogs"></i></a> </li>
+			<li data-toggle="modal" data-target="#exampleModalLong" id="Summary" class="hidableItems"><a href="#">Resumen</a></li>
+			<li data-toggle="modal" data-target="#exampleModalLong" id="getChangesId" style="float:right"><a href="#"><i class="fa fa-cogs"></i></a> </li>
     </ul>
 
 		<!-- Modal -->
@@ -49,6 +50,7 @@
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 		        <button id="saveChangesId" type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+						<button id="exportChangesId" type="button" class="btn btn-primary" data-dismiss="modal">Exportar</button>
 		      </div>
 		    </div>
 		  </div>

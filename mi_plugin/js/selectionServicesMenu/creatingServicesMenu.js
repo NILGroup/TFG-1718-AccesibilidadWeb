@@ -1,7 +1,7 @@
 var features = {
   "Definitions":"Definiciones",
-  "Synonyms":"Sinónimos",
-  "Antonyms":"Antónimos",
+  "Synonyms":"Palabras parecidas",
+  "Antonyms":"Palabras distintas",
   "Youtube":"Youtube",
   "Wikipedia":"Wikipedia",
   "Pictograms":"Pictogramas",

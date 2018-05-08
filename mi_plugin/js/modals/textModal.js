@@ -6,4 +6,7 @@ function openTextModal(array, serviceCalled, selectedText){
     jQuery('#modalBodyId').append('<label><input type="checkbox" class="optionsSelected checkbox" id="' + index + '" value="' + value +'">' + value);
     jQuery('#modalBodyId').append('</label><br>');
   });
+  jQuery('#saveChangesId').show();
+  jQuery('#exportChangesId').hide();
+
 }
