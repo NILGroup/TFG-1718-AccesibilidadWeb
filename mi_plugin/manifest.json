@@ -33,7 +33,8 @@
         "js/storage/saveChanges.js",
         "js/storage/getChanges.js",
         "js/modals/savedChangesModal.js",
-        "js/storage/exportData.js"
+        "js/storage/exportData.js",
+        "js/modals/imgModal.js"
        ]
     }
   ],

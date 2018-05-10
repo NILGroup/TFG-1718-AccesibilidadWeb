@@ -1,11 +1,11 @@
-function openTextModal(array, serviceCalled, selectedText){
+function openImgDataModal(array, serviceCalled, selectedText){
   jQuery('#modalTitleId').empty();
   jQuery('#modalTitleId').append(serviceCalled + ': ' + selectedText);
   jQuery('#modalBodyId').empty();
 
   jQuery.each(array, function (index, value) {
-    jQuery('#modalBodyId').append('<label><input type="checkbox" class="optionsSelected checkbox" id="' + index + '" value="' + value +'">' + value);
-    jQuery('#modalBodyId').append('</label><br>');
+    jQuery('#modalBodyId').append('<img style="-webkit-user-select: none;" src="http://hypatia.fdi.ucm.es/conversor/Pictos/6009">');
+    jQuery('#modalBodyId').append('<br>');
   });
 
   jQuery('#saveChangesId').show();

@@ -6,43 +6,46 @@ $(document).ready(function(){
     getSearchText();
     var url = 'https://sesat.fdi.ucm.es/tfgapi/servicios/rest/definicion/json/' + userText;
     serviceCalled = this.textContent;
-    callingWebService(url, userText, serviceCalled);
+    callingGetWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de sinónimos
   $("#Synonyms").click(function(){
     getSearchText();
-    var url = 'https://sesat.fdi.ucm.es:tfgapi/servicios/rest/sinonimos/json/' + userText;
+    var url = 'https://sesat.fdi.ucm.es/tfgapi/servicios/rest/sinonimos/json/' + userText;
     var serviceCalled = this.textContent;
-    callingWebService(url, userText, serviceCalled);
+    callingGetWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de antónimos
   $("#Antonyms").click(function(){
     getSearchText();
-    var url = 'https://sesat.fdi.ucm.es:tfgapi/servicios/rest/antonimos/json/' + userText;
+    var url = 'https://sesat.fdi.ucm.es/tfgapi/servicios/rest/antonimos/json/' + userText;
     var serviceCalled = this.textContent;
-    callingWebService(url, userText, serviceCalled);
+    callingGetWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de pictogramas
   $("#Pictograms").click(function(){
+    debugger;
     getSearchText();
-    var url = 'https://sesat.fdi.ucm.es:tfgapi/servicios/rest/pictograma/json/' + userText;
+    var url = 'https://sesat.fdi.ucm.es/serviciopictar/' + userText;
     var serviceCalled = this.textContent;
-    callingWebService(url, userText, serviceCalled);
+    callingPictogramsService(url, userText, serviceCalled);
   });
   //Llamar al servicio de resumenes
-  // $("#Summary").click(function(){
-  //   getSearchText();
-  //   var url = 'https://sesat.fdi.ucm.es/grafeno/run/summary/' + userText;
-  //   var serviceCalled = this.textContent;
-  //   callingWebService(url, userText, serviceCalled);
-  // });
+  $("#Summary").click(function(){
+    getSearchText();
+    var url = 'https://sesat.fdi.ucm.es/grafeno/run/summary_es';
+    var serviceCalled = this.textContent;
+    callingSummarytWebService(url, userText, serviceCalled);
+  });
   //Abrir nueva pestaña de Youtube
   $("#Youtube").click(function(){
+    getSearchText();
     var url = "https://www.youtube.com/results?search_query=" + userText;
     openCenteringWindow(url);
   });
   //Abrir nueva pestaña de Wikipedia
   $("#Wikipedia").click(function(){
+    getSearchText();
     var url = "https://es.wikipedia.org/wiki/" + userText;
     openCenteringWindow(url);
   });
@@ -73,25 +76,61 @@ function getSelectionText(){
   return selectedText;
 }
 
-function callingWebService(url, selectedText, serviceCalled) {
-  debugger;
+function callingGetWebService(url, selectedText, serviceCalled) {
   if(selectedText == "") return;
+  debugger;
   $.get(url, function( data ) {
-    debugger;
     var jsonData = JSON.parse(data);
     var arrayDef = [];
     switch (serviceCalled) {
       case "Definiciones":
-        arrayDef = parseDefinitionsData(arrayDef, jsonData);
+        arrayDef = parseDefinitionsData(jsonData);
         break;
       case "Palabras parecidas":
-        arrayDef = parseSynonymsData(arrayDef, jsonData);
+        arrayDef = parseSynonymsData(jsonData);
         break;
-        case "Palabras diferentes":
-          arrayDef = parseAntonymsData(arrayDef, jsonData);
-          break;
+      case "Palabras diferentes":
+        arrayDef = parseAntonymsData(jsonData);
+        break;
     }
       openTextModal(arrayDef, serviceCalled, selectedText);
+  });
+}
+
+function callingSummarytWebService(url, selectedText, serviceCalled) {
+  debugger;
+  var inputDataJson = {}
+  inputDataJson["text"] = selectedText;
+
+  if(selectedText == "") return;
+
+  $.ajax({
+    url:url,
+    type:"POST",
+    data:inputDataJson,
+    dataType: "json",
+    async:false,
+    headers: {
+      'Content-Type':'application/json'
+    },
+    success: function(){
+      //
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+			  alert("error");
+		}
+  });
+  // $.post(url, inputDataJson, function(data,status){
+  //   alert("Data: " + data + "\nStatus: " + status);
+  // });
+}
+
+function callingPictogramsService(url, selectedText, serviceCalled){
+  $.get("http://hypatia.fdi.ucm.es/conversor/Pictos/6009", function( data ) {
+    debugger;
+    var a = [];
+    a.push(data);
+    openImgDataModal(a, serviceCalled, selectedText);
   });
 }
 
@@ -112,26 +151,34 @@ function openCenteringWindow(url){
   + top + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no");
 }
 
-function parseDefinitionsData(arrayDef, jsonData){
+function parseDefinitionsData(jsonData){
+  var arrayDefinitions = [];
   $.each(jsonData.definiciones, function (index, value) {
     var def = value.definicion;
-    arrayDef.push(def);
+    arrayDefinitions.push(def);
   });
-  return arrayDef;
+  return arrayDefinitions;
 }
 
-function parseSynonymsData(arrayDef, jsonData){
+function parseSynonymsData(jsonData){
+  var arraySynonyms = [];
   $.each(jsonData.sinonimos, function (index, value) {
     var def = value.sinonimo;
-    arrayDef.push(def);
+    arraySynonyms.push(def);
   });
-  return arrayDef;
+  return arraySynonyms;
 }
 
-function parseAntonymsData(arrayDef, jsonData){
+function parseAntonymsData(jsonData){
+  var arrayAntonyms = [];
   $.each(jsonData.antonimos, function (index, value) {
     var def = value.antonimo;
-    arrayDef.push(def);
+    arrayAntonyms.push(def);
   });
-  return arrayDef;
+  return arrayAntonyms;
+}
+
+function parsePictogramsData(jsonData){
+
+
 }

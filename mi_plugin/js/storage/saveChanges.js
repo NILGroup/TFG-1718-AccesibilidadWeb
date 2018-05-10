@@ -1,5 +1,6 @@
 $(document).ready(function(){
   $("#saveChangesId").click(function(){
+    debugger;
     var selectedCheckBoxArray = [];
     var title = $('#modalTitleId').text();
     selectedCheckBoxArray.push(title);
@@ -17,7 +18,7 @@ $(document).ready(function(){
         var persistentData = selectedCheckBoxArray.concat(historyData);
         chrome.storage.sync.set({'dataSaved': persistentData}, function() {
           // Notify that we saved.
-          alert('Settings saved');
+          //alert('Settings saved');
         });
       }
     });

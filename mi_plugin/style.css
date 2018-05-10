@@ -51,6 +51,7 @@
 }
 
 #customToolbarMenu input[type=text] {
+  margin: 0;
   width: 200px;
   height: 45px;
   box-sizing: border-box;
@@ -65,7 +66,7 @@
   transition: width 0.4s ease-in-out;
 }
 
-.active {
+#customToolbarMenu .active {
   background-color: #4CAF50;
 }
 
