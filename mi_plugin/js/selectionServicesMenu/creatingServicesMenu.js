@@ -5,7 +5,8 @@ var features = {
   "Youtube":"Youtube",
   "Wikipedia":"Wikipedia",
   "Pictograms":"Pictogramas",
-  "Summary":"Resumen"
+  "Summary":"Resumen",
+  "OutLoudReading":"Lectura en voz alta"
 };
 
 function creatingServicesMenu() {

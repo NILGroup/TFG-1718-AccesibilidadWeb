@@ -37,6 +37,13 @@ $(document).ready(function(){
     var serviceCalled = this.textContent;
     callingSummarytWebService(url, userText, serviceCalled);
   });
+  //Llamar a la lectura en voz alta
+  $("#OutLoudReading").click(function(){
+    debugger;
+    getSearchText();
+    var serviceCalled = this.textContent;
+     chrome.extension.sendMessage({ msg: userText });
+  });
   //Abrir nueva pestaña de Youtube
   $("#Youtube").click(function(){
     getSearchText();
