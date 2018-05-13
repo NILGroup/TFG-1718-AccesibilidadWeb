@@ -162,15 +162,20 @@ function callingSummaryWebService(url, selectedText, serviceCalled) {
 }
 
 function callingPictogramsService(url, selectedText, serviceCalled){
-  $.get(url, function( data ) {
-    var pictosArrayId = parseStringData(data[0]);
-    if(pictosArrayId.length == 0){
-
-    }
-    else{
-      openImgDataModal(pictosArrayId, serviceCalled, selectedText);
-    }
-  });
+  if(selectedText == ""){
+    openErrorTextModal(serviceCalled);
+  }
+  else{
+    $.get(url, function( data ) {
+      var pictosArrayId = parseStringData(data[0]);
+      if(pictosArrayId.length == 0){
+        openNoResultsServiceTextModal(serviceCalled, selectedText);
+      }
+      else{
+        openImgDataModal(pictosArrayId, serviceCalled, selectedText);
+      }
+    });
+  }
 }
 
 function getSearchText(){

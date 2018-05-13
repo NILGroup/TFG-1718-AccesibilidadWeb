@@ -1,5 +1,4 @@
 function openImgDataModal(array, serviceCalled, selectedText){
-  debugger;
   jQuery('#modalTitleId').empty();
   jQuery('#modalTitleId').append(serviceCalled + ': ' + selectedText);
   jQuery('#modalBodyId').empty();
@@ -7,7 +6,7 @@ function openImgDataModal(array, serviceCalled, selectedText){
   jQuery.each(array, function (index, value) {
     debugger;
     var srcImg = "http://hypatia.fdi.ucm.es/conversor/Pictos/" + value;
-    jQuery('#modalBodyId').append('<img style="-webkit-user-select: none; width="300" height="300"" src=' + srcImg +'>');
+    jQuery('#modalBodyId').append('<img style="-webkit-user-select: none; width="200" height="200"" src=' + srcImg +'>');
     jQuery('#modalBodyId').append('<br>');
   });
 
