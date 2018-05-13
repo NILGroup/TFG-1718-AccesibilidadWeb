@@ -3,5 +3,13 @@ chrome.extension.onMessage.addListener(
     if(request.msg != null) {
       chrome.tts.speak(request.msg);
     }
+    if(request.exportData != null) {
+      debugger;
+      chrome.downloads.download({
+       url: request.exportData ,
+       filename: "prueba.txt",
+      });
+    }
+
   }
 );

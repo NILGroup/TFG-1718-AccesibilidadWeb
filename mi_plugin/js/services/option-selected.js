@@ -24,7 +24,6 @@ $(document).ready(function(){
   });
   //Llamar al servicio de pictogramas
   $("#Pictograms").click(function(){
-    debugger;
     getSearchText();
     var url = 'https://sesat.fdi.ucm.es/serviciopictar/' + userText;
     var serviceCalled = this.textContent;
@@ -35,14 +34,13 @@ $(document).ready(function(){
     getSearchText();
     var url = 'https://sesat.fdi.ucm.es/grafeno/run/summary_es';
     var serviceCalled = this.textContent;
-    callingSummarytWebService(url, userText, serviceCalled);
+    callingSummaryWebService(url, userText, serviceCalled);
   });
   //Llamar a la lectura en voz alta
   $("#OutLoudReading").click(function(){
-    debugger;
     getSearchText();
     var serviceCalled = this.textContent;
-     chrome.extension.sendMessage({ msg: userText });
+    chrome.extension.sendMessage({ msg: userText });
   });
   //Abrir nueva pestaña de Youtube
   $("#Youtube").click(function(){
@@ -66,13 +64,19 @@ $(document).ready(function(){
       }
     });
   });
+
+  $("#exportChangesId").click(function(){
+    debugger;////////////////////////////////////
+    var h = "hola";
+  });
+
 });
 
 window.addEventListener('mouseup', function(){
-    var text = getSelectionText();
-    if (text.length > 0){ // check there's some text selected
-        userText = text;
-    }
+  var text = getSelectionText();
+  if (text.length > 0){ // check there's some text selected
+      userText = text;
+  }
 }, false)
 
 function getSelectionText(){
@@ -84,28 +88,35 @@ function getSelectionText(){
 }
 
 function callingGetWebService(url, selectedText, serviceCalled) {
-  if(selectedText == "") return;
-  debugger;
-  $.get(url, function( data ) {
-    var jsonData = JSON.parse(data);
-    var arrayDef = [];
-    switch (serviceCalled) {
-      case "Definiciones":
-        arrayDef = parseDefinitionsData(jsonData);
-        break;
-      case "Palabras parecidas":
-        arrayDef = parseSynonymsData(jsonData);
-        break;
-      case "Palabras diferentes":
-        arrayDef = parseAntonymsData(jsonData);
-        break;
-    }
-      openTextModal(arrayDef, serviceCalled, selectedText);
-  });
+  if(selectedText == ""){
+    openErrorTextModal(serviceCalled);
+  }
+  else{
+    $.get(url, function( data ) {
+      var jsonData = JSON.parse(data);
+      var arrayDef = [];
+      switch (serviceCalled) {
+        case "Definiciones":
+          arrayDef = parseDefinitionsData(jsonData);
+          break;
+        case "Palabras parecidas":
+          arrayDef = parseSynonymsData(jsonData);
+          break;
+        case "Palabras diferentes":
+          arrayDef = parseAntonymsData(jsonData);
+          break;
+      }
+      if(arrayDef.length == 0){
+        opeNnoResultsServiceTextModal(serviceCalled, selectedText);
+      }
+      else {
+        openTextModal(arrayDef, serviceCalled, selectedText);
+      }
+    });
+  }
 }
 
-function callingSummarytWebService(url, selectedText, serviceCalled) {
-  debugger;
+function callingSummaryWebService(url, selectedText, serviceCalled) {
   var inputDataJson = {}
   inputDataJson["text"] = selectedText;
 
@@ -121,7 +132,7 @@ function callingSummarytWebService(url, selectedText, serviceCalled) {
       'Content-Type':'application/json'
     },
     success: function(){
-      //
+      alert("correct");
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
 			  alert("error");
@@ -133,11 +144,9 @@ function callingSummarytWebService(url, selectedText, serviceCalled) {
 }
 
 function callingPictogramsService(url, selectedText, serviceCalled){
-  $.get("http://hypatia.fdi.ucm.es/conversor/Pictos/6009", function( data ) {
-    debugger;
-    var a = [];
-    a.push(data);
-    openImgDataModal(a, serviceCalled, selectedText);
+  $.get(url, function( data ) {
+    var pictosArrayId = parseStringData(data[0]);
+    openImgDataModal(pictosArrayId, serviceCalled, selectedText);
   });
 }
 
@@ -185,7 +194,11 @@ function parseAntonymsData(jsonData){
   return arrayAntonyms;
 }
 
-function parsePictogramsData(jsonData){
-
-
+function parseStringData(data){
+  var pictosArrayIds = [];
+  var pictosId = data.substring(data.indexOf("["));
+  pictosId = pictosId.substring(0, pictosId.indexOf("]"));
+  pictosId = pictosId.substring(1);
+  pictosArrayIds = pictosId.split(', ');
+  return pictosArrayIds;
 }

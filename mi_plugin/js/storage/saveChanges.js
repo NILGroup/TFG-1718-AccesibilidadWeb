@@ -10,7 +10,7 @@ $(document).ready(function(){
     chrome.storage.sync.get('dataSaved', function (result) {
       if(result.dataSaved == null ) {
         chrome.storage.sync.set({'dataSaved': selectedCheckBoxArray}, function() {
-          alert("guardado por primera vez");
+          //alert("guardado por primera vez");
         });
       }
       else {
