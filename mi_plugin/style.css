@@ -39,6 +39,7 @@
 }
 
 #customToolbarMenu li a {
+  font-size: 20px;
   display: block;
   color: white;
   text-align: center;
@@ -73,9 +74,13 @@
 
 /* Important part */
 .modal-dialog{
-    overflow-y: initial !important
+  overflow-y: initial !important
+}
+.modal-title{
+  font-size: 24px;
 }
 .modal-body{
-    height: 250px;
-    overflow-y: auto;
+  font-size: 20px;
+  height: 250px;
+  overflow-y: auto;
 }

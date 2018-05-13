@@ -1,56 +1,73 @@
 var userText= "";
+var selectionableText = "";
 var serviceCalled = "";
 $(document).ready(function(){
   //Llamar al servicio de definiciones
   $("#Definitions").click(function(){
-    getSearchText();
+    if (selectionableText == ""){
+      getSearchText();
+    }
     var url = 'https://sesat.fdi.ucm.es/tfgapi/servicios/rest/definicion/json/' + userText;
     serviceCalled = this.textContent;
     callingGetWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de sinónimos
   $("#Synonyms").click(function(){
-    getSearchText();
+    if (selectionableText == ""){
+      getSearchText();
+    }
     var url = 'https://sesat.fdi.ucm.es/tfgapi/servicios/rest/sinonimos/json/' + userText;
     var serviceCalled = this.textContent;
     callingGetWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de antónimos
   $("#Antonyms").click(function(){
-    getSearchText();
+    if (selectionableText == ""){
+      getSearchText();
+    }
     var url = 'https://sesat.fdi.ucm.es/tfgapi/servicios/rest/antonimos/json/' + userText;
     var serviceCalled = this.textContent;
     callingGetWebService(url, userText, serviceCalled);
   });
   //Llamar al servicio de pictogramas
   $("#Pictograms").click(function(){
-    getSearchText();
+    if (selectionableText == ""){
+      getSearchText();
+    }
     var url = 'https://sesat.fdi.ucm.es/serviciopictar/' + userText;
     var serviceCalled = this.textContent;
     callingPictogramsService(url, userText, serviceCalled);
   });
   //Llamar al servicio de resumenes
   $("#Summary").click(function(){
-    getSearchText();
+    if (selectionableText == ""){
+      getSearchText();
+    }
     var url = 'https://sesat.fdi.ucm.es/grafeno/run/summary_es';
     var serviceCalled = this.textContent;
     callingSummaryWebService(url, userText, serviceCalled);
   });
   //Llamar a la lectura en voz alta
   $("#OutLoudReading").click(function(){
-    getSearchText();
+    if (selectionableText == ""){
+      getSearchText();
+    }
     var serviceCalled = this.textContent;
     chrome.extension.sendMessage({ msg: userText });
   });
   //Abrir nueva pestaña de Youtube
   $("#Youtube").click(function(){
-    getSearchText();
+    if (selectionableText == ""){
+      getSearchText();
+    }
     var url = "https://www.youtube.com/results?search_query=" + userText;
     openCenteringWindow(url);
   });
   //Abrir nueva pestaña de Wikipedia
   $("#Wikipedia").click(function(){
-    getSearchText();
+    if (selectionableText == ""){
+      getSearchText();
+    }
     var url = "https://es.wikipedia.org/wiki/" + userText;
     openCenteringWindow(url);
   });
@@ -78,9 +95,10 @@ $(document).ready(function(){
 });
 
 window.addEventListener('mouseup', function(){
-  var text = getSelectionText();
-  if (text.length > 0){ // check there's some text selected
-      userText = text;
+  debugger;
+  selectionableText = getSelectionText();
+  if (selectionableText.length > 0){ // check there's some text selected
+      userText = selectionableText;
   }
 }, false)
 
