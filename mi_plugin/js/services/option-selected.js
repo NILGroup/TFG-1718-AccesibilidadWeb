@@ -54,6 +54,11 @@ $(document).ready(function(){
     var url = "https://es.wikipedia.org/wiki/" + userText;
     openCenteringWindow(url);
   });
+  //Llamanos al blog del colegioestudio3
+  $("#Blog").click(function(){
+    var url = "http://colegioestudio3.blogspot.com.es";
+    openCenteringWindow(url);
+  });
   //Abrir popup con los datos guardados por el usuario
   $("#getChangesId").click(function(){
     var savedUserData = [];
