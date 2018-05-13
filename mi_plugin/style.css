@@ -31,7 +31,6 @@
 #customToolbarMenu li {
   float: left;
   border-right:1px solid #bbb;
-  /* display: none; */
 }
 
 #customToolbarMenu li:last-child {
@@ -39,7 +38,7 @@
 }
 
 #customToolbarMenu li a {
-  font-size: 20px;
+  font-size: 18px;
   display: block;
   color: white;
   text-align: center;

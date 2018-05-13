@@ -87,15 +87,9 @@ $(document).ready(function(){
     });
   });
 
-  $("#exportChangesId").click(function(){
-    debugger;////////////////////////////////////
-    var h = "hola";
-  });
-
 });
 
 window.addEventListener('mouseup', function(){
-  debugger;
   selectionableText = getSelectionText();
   if (selectionableText.length > 0){ // check there's some text selected
       userText = selectionableText;
@@ -130,7 +124,7 @@ function callingGetWebService(url, selectedText, serviceCalled) {
           break;
       }
       if(arrayDef.length == 0){
-        opeNnoResultsServiceTextModal(serviceCalled, selectedText);
+        openNoResultsServiceTextModal(serviceCalled, selectedText);
       }
       else {
         openTextModal(arrayDef, serviceCalled, selectedText);
@@ -142,34 +136,40 @@ function callingGetWebService(url, selectedText, serviceCalled) {
 function callingSummaryWebService(url, selectedText, serviceCalled) {
   var inputDataJson = {}
   inputDataJson["text"] = selectedText;
-
-  if(selectedText == "") return;
-
+  var json_data = JSON.stringify(inputDataJson);
   $.ajax({
     url:url,
     type:"POST",
-    data:inputDataJson,
+    data:json_data,
     dataType: "json",
     async:false,
     headers: {
       'Content-Type':'application/json'
     },
-    success: function(){
-      alert("correct");
+    success: function(summary){
+      if(summary.result == ""){
+        var title = selectedText.substring(0,10) + "...";
+        openNoResultsServiceTextModal(serviceCalled, title);
+      }
+      else {
+          openSummaryTextModal(summary.result, serviceCalled, selectedText);
+      }
     },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
-			  alert("error");
+    error: function(XMLHttpRequest) {
+      openNoResultsServiceTextModal(serviceCalled, selectedText);
 		}
   });
-  // $.post(url, inputDataJson, function(data,status){
-  //   alert("Data: " + data + "\nStatus: " + status);
-  // });
 }
 
 function callingPictogramsService(url, selectedText, serviceCalled){
   $.get(url, function( data ) {
     var pictosArrayId = parseStringData(data[0]);
-    openImgDataModal(pictosArrayId, serviceCalled, selectedText);
+    if(pictosArrayId.length == 0){
+
+    }
+    else{
+      openImgDataModal(pictosArrayId, serviceCalled, selectedText);
+    }
   });
 }
 

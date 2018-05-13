@@ -1,4 +1,4 @@
-function opeNnoResultsServiceTextModal(serviceCalled, selectedText){
+function openNoResultsServiceTextModal(serviceCalled, selectedText){
   jQuery('#modalTitleId').empty();
   jQuery('#modalTitleId').append(serviceCalled + ': ' + selectedText);
 
