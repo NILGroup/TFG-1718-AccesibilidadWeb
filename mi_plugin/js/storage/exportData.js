@@ -1,6 +1,5 @@
 $(document).ready(function(){
   $("#exportChangesId").click(function(){
-    debugger;
     var savedUserData = [];
     chrome.storage.sync.get('dataSaved', function (result) {
       savedUserData = result.dataSaved;

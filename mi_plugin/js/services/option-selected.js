@@ -134,31 +134,37 @@ function callingGetWebService(url, selectedText, serviceCalled) {
 }
 
 function callingSummaryWebService(url, selectedText, serviceCalled) {
-  var inputDataJson = {}
-  inputDataJson["text"] = selectedText;
-  var json_data = JSON.stringify(inputDataJson);
-  $.ajax({
-    url:url,
-    type:"POST",
-    data:json_data,
-    dataType: "json",
-    async:false,
-    headers: {
-      'Content-Type':'application/json'
-    },
-    success: function(summary){
-      if(summary.result == ""){
+  debugger;
+  if(selectedText == ""){
+    openErrorTextModal(serviceCalled);
+  }
+  else{
+    var inputDataJson = {}
+    inputDataJson["text"] = selectedText;
+    var json_data = JSON.stringify(inputDataJson);
+    $.ajax({
+      url:url,
+      type:"POST",
+      data:json_data,
+      dataType: "json",
+      async:false,
+      headers: {
+        'Content-Type':'application/json'
+      },
+      success: function(summary){
         var title = selectedText.substring(0,10) + "...";
-        openNoResultsServiceTextModal(serviceCalled, title);
+        if(summary.result == ""){
+          openNoResultsServiceTextModal(serviceCalled, title);
+        }
+        else {
+          openSummaryTextModal(summary.result, serviceCalled, title);
+        }
+      },
+      error: function(XMLHttpRequest) {
+        openNoResultsServiceTextModal(serviceCalled, selectedText);
       }
-      else {
-          openSummaryTextModal(summary.result, serviceCalled, selectedText);
-      }
-    },
-    error: function(XMLHttpRequest) {
-      openNoResultsServiceTextModal(serviceCalled, selectedText);
-		}
-  });
+    });
+  }
 }
 
 function callingPictogramsService(url, selectedText, serviceCalled){
@@ -167,6 +173,7 @@ function callingPictogramsService(url, selectedText, serviceCalled){
   }
   else{
     $.get(url, function( data ) {
+      debugger;
       var pictosArrayId = parseStringData(data[0]);
       if(pictosArrayId.length == 0){
         openNoResultsServiceTextModal(serviceCalled, selectedText);

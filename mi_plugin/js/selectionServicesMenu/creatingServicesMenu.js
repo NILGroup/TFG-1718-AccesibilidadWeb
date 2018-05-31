@@ -1,7 +1,7 @@
 var features = {
   "Definitions":"Definiciones",
   "Synonyms":"Palabras parecidas",
-  "Antonyms":"Palabras distintas",
+  "Antonyms":"Palabras contrarias",
   "Youtube":"Youtube",
   "Wikipedia":"Wikipedia",
   "Pictograms":"Pictogramas",
@@ -16,11 +16,12 @@ function creatingServicesMenu() {
   $.each(features, function (index, value) {
    document.write('<li><input class="notSelectAll checkbox" type="checkbox" name="check[]" id=' + index + '>' + value + '</li>');
   });
-  document.write('<li><input class="notSelectAll checkbox" type="checkbox" name="check[]" id="capital_letters"/>Mostrar en mayúsculas</li>');
+  // document.write('<li><input class="notSelectAll checkbox" type="checkbox" name="check[]" id="capital_letters"/>Mostrar en mayúsculas</li>');
   document.write("</ul>");
 
+  document.write('<div style="text-align:center;">');
   document.write('<input type="button" id="selectionButton" value="Aceptar"/>');
-
+  document.write("</div>");
 
 }
 
