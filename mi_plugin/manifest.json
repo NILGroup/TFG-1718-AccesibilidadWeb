@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ReadIt!",
-  "description": "Herramienta de apoyo a la navegación web para personas con discapacidad",
+  "description": "Herramienta de apoyo a la navegación web para personas con discapacidad. https://github.com/NILGroup/TFG-1718-AccesibilidadWeb",
   "version": "1.0",
   "author": "Lorena Jiménez",
   "icons":{
@@ -35,7 +35,6 @@
         "js/selectionServicesMenu/loadToolbarMenu.js",
         "js/modals/textModal.js",
         "js/storage/saveChanges.js",
-        "js/storage/getChanges.js",
         "js/modals/savedChangesModal.js",
         "js/storage/exportData.js",
         "js/modals/imgModal.js",

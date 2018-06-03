@@ -134,7 +134,6 @@ function callingGetWebService(url, selectedText, serviceCalled) {
 }
 
 function callingSummaryWebService(url, selectedText, serviceCalled) {
-  debugger;
   if(selectedText == ""){
     openErrorTextModal(serviceCalled);
   }
@@ -173,8 +172,7 @@ function callingPictogramsService(url, selectedText, serviceCalled){
   }
   else{
     $.get(url, function( data ) {
-      debugger;
-      var pictosArrayId = parseStringData(data[0]);
+      var pictosArrayId = parseStringData(data);
       if(pictosArrayId.length == 0){
         openNoResultsServiceTextModal(serviceCalled, selectedText);
       }
@@ -231,9 +229,14 @@ function parseAntonymsData(jsonData){
 
 function parseStringData(data){
   var pictosArrayIds = [];
-  var pictosId = data.substring(data.indexOf("["));
-  pictosId = pictosId.substring(0, pictosId.indexOf("]"));
-  pictosId = pictosId.substring(1);
-  pictosArrayIds = pictosId.split(', ');
+  $.each(data, function (index, value){
+    var pictosId = value.substring(value.indexOf("["));
+    pictosId = pictosId.substring(0, pictosId.indexOf("]"));
+    pictosId = pictosId.substring(1);
+    var pictoId = pictosId.split(', ');
+    $.each(pictoId, function (index, value){
+      pictosArrayIds.push(value);
+    });
+  });
   return pictosArrayIds;
 }
