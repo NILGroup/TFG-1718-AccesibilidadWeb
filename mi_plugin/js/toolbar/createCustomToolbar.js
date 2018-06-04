@@ -15,7 +15,6 @@ chrome.runtime.onMessage.addListener(
       $('.hidableItems').hide();
       itemsToShow.forEach(x => $("#" + x).show());
       if(jQuery.inArray("capital_letters", itemsToShow) !== -1){
-        debugger;
         var index = itemsToShow.indexOf("capital_letters");
         itemsToShow.splice(index, 1);
         itemsToShow.forEach(x => $("#" + x).val().toUpperCase());
