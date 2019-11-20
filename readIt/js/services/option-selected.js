@@ -109,27 +109,26 @@ function callingGetWebService(url, selectedText, serviceCalled) {
     openErrorTextModal(serviceCalled);
   }
   else{
-    $.get(url, function( data ) {
-      var jsonData = JSON.parse(data);
-      var arrayDef = [];
-      switch (serviceCalled) {
-        case "Definiciones":
-          arrayDef = parseDefinitionsData(jsonData);
-          break;
-        case "Palabras parecidas":
-          arrayDef = parseSynonymsData(jsonData);
-          break;
-        case "Palabras diferentes":
-          arrayDef = parseAntonymsData(jsonData);
-          break;
-      }
-      if(arrayDef.length == 0){
-        openNoResultsServiceTextModal(serviceCalled, selectedText);
-      }
-      else {
-        openTextModal(arrayDef, serviceCalled, selectedText);
-      }
-    });
+      chrome.runtime.sendMessage({url}, jsonData => {
+          var arrayDef = [];
+          switch (serviceCalled) {
+              case "Definiciones":
+                  arrayDef = parseDefinitionsData(jsonData);
+                  break;
+              case "Palabras parecidas":
+                  arrayDef = parseSynonymsData(jsonData);
+                  break;
+              case "Palabras diferentes":
+                  arrayDef = parseAntonymsData(jsonData);
+                  break;
+          }
+          if(arrayDef.length == 0){
+              openNoResultsServiceTextModal(serviceCalled, selectedText);
+          }
+          else {
+              openTextModal(arrayDef, serviceCalled, selectedText);
+          }
+      });
   }
 }
 
